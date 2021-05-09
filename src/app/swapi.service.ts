@@ -14,7 +14,7 @@ export class SwapiService {
   loadPlanets() {
     //return this.http.get("http://swapi.dev/api/planets/");
 
-    const pageOne = this.http.get("https://swapi.dev/api/planets/"); // Observable of an object
+    const pageOne = this.http.get("http://swapi.dev/api/planets/"); // Observable of an object
 
     // Pipe to pass pageOne to other functions (expand and tap in this example); it returns another observable
     return pageOne.pipe(
