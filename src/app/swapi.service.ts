@@ -24,6 +24,7 @@ export class SwapiService {
           if ((page as any).next) {
 
             let correctUrl = (page as any).next.replace("http:", "https:");
+            (page as any).next = correctUrl;
             return this.http.get(correctUrl);
 
           } else {
