@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { merge, race, EMPTY } from 'rxjs';
-import { expand, tap } from 'rxjs/operators';
+import { expand } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +18,9 @@ export class SwapiService {
 
     // Pipe to pass pageOne to other functions (expand and tap in this example); it returns another observable
     return pageOne.pipe(
-      tap(x => console.log("tap", x)),
       expand(
         page => {
+          // If there is a next page, make a request to it. If not, return {}
           if ((page as any).next) {
 
             let correctUrl = (page as any).next.replace("http:", "https:");
@@ -32,7 +32,6 @@ export class SwapiService {
             return EMPTY;
           }
         }
-        // If there is a next page, make a request to it. If not, return {}
       )
     );
 
