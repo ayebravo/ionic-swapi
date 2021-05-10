@@ -20,7 +20,17 @@ export class SwapiService {
     return pageOne.pipe(
       tap(x => console.log("tap", x)),
       expand(
-        page => (page as any).next ? this.http.get((page as any).next) : EMPTY
+        page => {
+          if ((page as any).next) {
+
+            let correctUrl = (page as any).next.replace("http:", "https:");
+            return this.http.get(correctUrl);
+
+          } else {
+
+            return EMPTY;
+          }
+        }
         // If there is a next page, make a request to it. If not, return {}
       )
     );
